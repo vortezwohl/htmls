@@ -42,7 +42,7 @@
     .page {
       position: relative;
       display: grid;
-      grid-template-rows: minmax(180px, 34%) 1fr;
+      grid-template-rows: minmax(170px, 31%) 1fr;
       width: 100%;
       height: 100dvh;
       min-height: 560px;
@@ -70,14 +70,14 @@
       display: flex;
       align-items: start;
       justify-content: center;
-      padding-top: 2px;
+      padding-top: 6px;
     }
 
     .mom {
       position: relative;
-      width: min(300px, 58vw);
+      width: min(258px, 52vw);
       aspect-ratio: 1.12;
-      filter: drop-shadow(0 22px 28px rgba(118, 52, 74, 0.2));
+      filter: drop-shadow(0 18px 24px rgba(118, 52, 74, 0.18));
     }
 
     .mom-illustration {
@@ -93,7 +93,7 @@
 
     .mom-flower {
       animation: flower-wave 2600ms ease-in-out infinite;
-      transform-origin: 214px 136px;
+      transform-origin: 225px 168px;
     }
 
     .stage {
@@ -163,9 +163,9 @@
     .bouquet {
       position: relative;
       width: min(760px, 96vw);
-      height: min(500px, 58dvh);
-      min-height: 330px;
-      transform: translateY(12px);
+      height: min(455px, 55dvh);
+      min-height: 315px;
+      transform: translateY(24px);
     }
 
     .ground {
@@ -217,7 +217,7 @@
     .flower {
       position: absolute;
       left: 50%;
-      bottom: calc(var(--stem-height) + 28px);
+      bottom: calc(var(--stem-height) + 8px);
       width: var(--size);
       height: var(--size);
       transform: translateX(-50%) scale(0.18) rotate(var(--spin));
@@ -277,45 +277,45 @@
     }
 
     .stem-one {
-      --stem-height: 300px;
+      --stem-height: 248px;
       --tilt: -34deg;
-      --size: 120px;
+      --size: 108px;
       --spin: -18deg;
       --petal: var(--rose);
       --delay: 120ms;
     }
 
     .stem-two {
-      --stem-height: 342px;
+      --stem-height: 286px;
       --tilt: -18deg;
-      --size: 138px;
+      --size: 122px;
       --spin: 8deg;
       --petal: var(--violet);
       --delay: 260ms;
     }
 
     .stem-three {
-      --stem-height: 370px;
+      --stem-height: 314px;
       --tilt: 0deg;
-      --size: 154px;
+      --size: 138px;
       --spin: -7deg;
       --petal: var(--coral);
       --delay: 390ms;
     }
 
     .stem-four {
-      --stem-height: 336px;
+      --stem-height: 282px;
       --tilt: 18deg;
-      --size: 132px;
+      --size: 118px;
       --spin: 16deg;
       --petal: #ffcf3d;
       --delay: 530ms;
     }
 
     .stem-five {
-      --stem-height: 292px;
+      --stem-height: 242px;
       --tilt: 35deg;
-      --size: 116px;
+      --size: 104px;
       --spin: -10deg;
       --petal: #28cfff;
       --delay: 670ms;
@@ -487,7 +487,7 @@
 
     @media (max-width: 680px) {
       .page {
-        grid-template-rows: minmax(148px, 29%) 1fr;
+        grid-template-rows: minmax(138px, 26%) 1fr;
         min-height: 100dvh;
       }
 
@@ -499,13 +499,14 @@
       }
 
       .mom {
-        width: min(238px, 62vw);
+        width: min(198px, 54vw);
       }
 
       .bouquet {
         width: 100%;
-        height: 62dvh;
-        min-height: 360px;
+        height: 59dvh;
+        min-height: 330px;
+        transform: translateY(28px);
       }
 
       .message {
@@ -521,31 +522,31 @@
       }
 
       .stem-one {
-        --stem-height: 236px;
-        --size: 86px;
+        --stem-height: 200px;
+        --size: 78px;
         --tilt: -31deg;
       }
 
       .stem-two {
-        --stem-height: 270px;
-        --size: 98px;
+        --stem-height: 228px;
+        --size: 88px;
         --tilt: -16deg;
       }
 
       .stem-three {
-        --stem-height: 300px;
-        --size: 114px;
+        --stem-height: 252px;
+        --size: 102px;
       }
 
       .stem-four {
-        --stem-height: 268px;
-        --size: 94px;
+        --stem-height: 226px;
+        --size: 84px;
         --tilt: 17deg;
       }
 
       .stem-five {
-        --stem-height: 232px;
-        --size: 84px;
+        --stem-height: 196px;
+        --size: 76px;
         --tilt: 32deg;
       }
 
@@ -557,12 +558,12 @@
 
     @media (min-width: 681px) and (max-height: 740px) {
       .page {
-        grid-template-rows: 150px 1fr;
+        grid-template-rows: 138px 1fr;
         min-height: 540px;
       }
 
       .mom {
-        width: 230px;
+        width: 198px;
       }
 
       .bouquet {
@@ -604,32 +605,39 @@
             </linearGradient>
           </defs>
 
-          <path d="M74 126C36 113 28 71 56 46c20-18 51-12 65 10 17-28 58-32 82-8 29 29 11 81-26 94-30 11-71-1-103-16Z" fill="#fff3fb" opacity=".9"/>
-          <path d="M74 122c-18-37-5-83 31-98 33-14 80 1 94 40 14 38-3 82-37 96-34 14-73 0-88-38Z" fill="url(#hairGradient)"/>
-          <path d="M51 219c9-47 44-75 89-75s80 28 89 75c-25 18-53 27-89 27s-64-9-89-27Z" fill="url(#dressGradient)"/>
-          <path d="M73 190c-18 11-35 27-47 46" fill="none" stroke="#ffd0b3" stroke-width="18" stroke-linecap="round"/>
-          <path d="M207 190c17 11 34 26 47 46" fill="none" stroke="#ffd0b3" stroke-width="18" stroke-linecap="round"/>
-          <path d="M91 78c4-29 24-48 52-48 30 0 51 21 55 51l3 24c5 45-21 80-61 80s-66-35-61-80l12-27Z" fill="#ffd0b3"/>
-          <path d="M90 91c8-38 39-58 78-54 25 3 43 21 46 49-34-2-65-13-88-34-8 18-20 31-36 39Z" fill="url(#hairGradient)"/>
-          <path d="M96 100c-14-3-25 6-23 20 1 12 13 19 25 14" fill="#ffd0b3"/>
-          <path d="M184 100c14-3 25 6 23 20-1 12-13 19-25 14" fill="#ffd0b3"/>
-          <circle cx="113" cy="115" r="6" fill="#43243d"/>
-          <circle cx="167" cy="115" r="6" fill="#43243d"/>
-          <ellipse cx="101" cy="134" rx="16" ry="9" fill="#ff7393" opacity=".55"/>
-          <ellipse cx="179" cy="134" rx="16" ry="9" fill="#ff7393" opacity=".55"/>
-          <path d="M127 139c7 8 20 8 27 0" fill="none" stroke="#d84267" stroke-width="5" stroke-linecap="round"/>
-          <path d="M96 168c22 22 66 22 88 0" fill="none" stroke="#fff0f7" stroke-width="7" stroke-linecap="round" opacity=".75"/>
+          <path d="M66 127C34 108 31 68 59 43c21-19 54-13 67 10 17-29 58-34 82-7 27 30 12 78-23 95-30 14-79 5-119-14Z" fill="#fff3fb" opacity=".88"/>
+          <path d="M77 120c-19-39-6-84 31-101 34-16 79-1 94 38 16 41-2 84-38 99-36 15-72 1-87-36Z" fill="url(#hairGradient)"/>
+          <path d="M55 219c9-43 43-72 85-72s76 29 85 72c-24 18-51 27-85 27s-61-9-85-27Z" fill="url(#dressGradient)"/>
+          <path d="M77 187c-16 12-31 28-42 47" fill="none" stroke="#ffd0b3" stroke-width="17" stroke-linecap="round"/>
+          <path d="M203 187c16 12 31 28 42 47" fill="none" stroke="#ffd0b3" stroke-width="17" stroke-linecap="round"/>
+          <path d="M88 80c5-30 25-50 53-50 31 0 52 21 56 52l4 24c5 47-22 81-61 81s-67-34-62-81l10-26Z" fill="#ffd0b3"/>
+          <path d="M89 92c8-39 40-60 80-55 25 3 43 20 47 49-32 2-66-9-92-34-7 18-19 32-35 40Z" fill="url(#hairGradient)"/>
+          <path d="M101 102c-12-3-22 6-20 18 1 10 11 17 21 13" fill="#ffd0b3"/>
+          <path d="M179 102c12-3 22 6 20 18-1 10-11 17-21 13" fill="#ffd0b3"/>
+          <path d="M105 110c5-5 14-5 19 0" fill="none" stroke="#43243d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M156 110c5-5 14-5 19 0" fill="none" stroke="#43243d" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="114" cy="119" r="5" fill="#43243d"/>
+          <circle cx="166" cy="119" r="5" fill="#43243d"/>
+          <circle cx="116" cy="117" r="1.8" fill="#fff" opacity=".9"/>
+          <circle cx="168" cy="117" r="1.8" fill="#fff" opacity=".9"/>
+          <ellipse cx="101" cy="135" rx="15" ry="8" fill="#ff7393" opacity=".5"/>
+          <ellipse cx="179" cy="135" rx="15" ry="8" fill="#ff7393" opacity=".5"/>
+          <path d="M129 139c6 8 18 8 24 0" fill="none" stroke="#d84267" stroke-width="5" stroke-linecap="round"/>
+          <path d="M104 166c19 19 53 20 73 0" fill="none" stroke="#fff0f7" stroke-width="7" stroke-linecap="round" opacity=".78"/>
+          <circle cx="92" cy="156" r="6" fill="#ffcf3d" opacity=".85"/>
+          <circle cx="188" cy="156" r="6" fill="#ffcf3d" opacity=".85"/>
           <g class="mom-heart">
             <path d="M140 213c-20-15-33-27-33-42 0-11 8-19 19-19 7 0 12 3 14 8 3-5 8-8 15-8 11 0 19 8 19 19 0 15-13 27-34 42Z" fill="#fff45d" stroke="#fff" stroke-width="5"/>
           </g>
           <g class="mom-flower">
-            <path d="M214 137c5 18 5 35 0 52" fill="none" stroke="#48c86f" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="214" cy="129" r="10" fill="#ffd642"/>
-            <circle cx="201" cy="129" r="10" fill="#ff6fa8"/>
-            <circle cx="227" cy="129" r="10" fill="#ff6fa8"/>
-            <circle cx="214" cy="116" r="10" fill="#ff8b54"/>
-            <circle cx="214" cy="142" r="10" fill="#ff8b54"/>
-            <circle cx="214" cy="129" r="7" fill="#fff4a8"/>
+            <path d="M224 166c6 15 7 31 3 48" fill="none" stroke="#48c86f" stroke-width="5" stroke-linecap="round"/>
+            <path d="M226 190c-13-2-21 4-26 15 13 3 22-3 26-15Z" fill="#65d987"/>
+            <circle cx="224" cy="157" r="9" fill="#ffd642"/>
+            <circle cx="212" cy="157" r="9" fill="#ff6fa8"/>
+            <circle cx="236" cy="157" r="9" fill="#ff6fa8"/>
+            <circle cx="224" cy="145" r="9" fill="#ff8b54"/>
+            <circle cx="224" cy="169" r="9" fill="#ff8b54"/>
+            <circle cx="224" cy="157" r="6" fill="#fff4a8"/>
           </g>
         </svg>
       </div>
