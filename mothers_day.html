@@ -71,6 +71,10 @@
       align-items: start;
       justify-content: center;
       padding-top: 6px;
+      opacity: 0;
+      transform: translateY(-18px) scale(0.68);
+      transform-origin: center bottom;
+      pointer-events: none;
     }
 
     .mom {
@@ -352,6 +356,15 @@
       outline-offset: 5px;
     }
 
+    .music-player {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .sparkles {
       position: absolute;
       inset: 0;
@@ -429,6 +442,10 @@
       opacity: 1;
     }
 
+    .page.opened .mom-wrap {
+      animation: mom-pop 720ms cubic-bezier(0.18, 1.38, 0.34, 1) 180ms both;
+    }
+
     @keyframes twinkle {
       0%,
       100% {
@@ -482,6 +499,27 @@
 
       50% {
         transform: rotate(5deg);
+      }
+    }
+
+    @keyframes mom-pop {
+      0% {
+        opacity: 0;
+        transform: translateY(-18px) scale(0.68);
+      }
+
+      58% {
+        opacity: 1;
+        transform: translateY(8px) scale(1.08);
+      }
+
+      78% {
+        transform: translateY(-3px) scale(0.96);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
     }
 
@@ -721,7 +759,7 @@
       </div>
 
       <button class="open-button" type="button" id="openButton" aria-controls="page">
-        開啟祝福
+        點我
       </button>
 
       <div class="sparkles" aria-hidden="true">
@@ -737,10 +775,18 @@
   <script>
     const page = document.getElementById("page");
     const openButton = document.getElementById("openButton");
+    const musicUrl = "https://music.163.com/outchain/player?type=2&id=563549233&auto=1&height=32";
 
     openButton.addEventListener("click", () => {
       page.classList.add("opened");
       openButton.setAttribute("aria-hidden", "true");
+      const musicPlayer = document.createElement("iframe");
+
+      musicPlayer.className = "music-player";
+      musicPlayer.title = "母親節音樂";
+      musicPlayer.allow = "autoplay";
+      musicPlayer.src = musicUrl;
+      document.body.appendChild(musicPlayer);
     }, { once: true });
   </script>
 </body>
