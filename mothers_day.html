@@ -82,6 +82,7 @@
       width: min(258px, 52vw);
       aspect-ratio: 1.12;
       filter: drop-shadow(0 18px 24px rgba(118, 52, 74, 0.18));
+      transform-origin: center bottom;
     }
 
     .mom-illustration {
@@ -325,10 +326,10 @@
       --delay: 670ms;
     }
 
-    .open-button {
+    .open-button,
+    .back-button {
       position: absolute;
       left: 50%;
-      bottom: 68px;
       z-index: 10;
       min-width: 176px;
       min-height: 56px;
@@ -346,12 +347,37 @@
       transition: transform 220ms ease, opacity 260ms ease, box-shadow 220ms ease;
     }
 
+    .open-button {
+      bottom: 68px;
+    }
+
+    .back-button {
+      position: fixed;
+      top: max(14px, env(safe-area-inset-top));
+      left: max(14px, env(safe-area-inset-left));
+      bottom: auto;
+      min-width: 118px;
+      min-height: 44px;
+      padding: 0 20px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #20b8d8, #5ee6a7);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-12px) scale(0.96);
+    }
+
     .open-button:hover {
       transform: translateX(-50%) translateY(-2px);
       box-shadow: 0 18px 32px rgba(145, 40, 78, 0.32), inset 0 3px 0 rgba(255, 255, 255, 0.34);
     }
 
-    .open-button:focus-visible {
+    .back-button:hover {
+      transform: translateY(-2px) scale(1);
+      box-shadow: 0 16px 30px rgba(20, 112, 128, 0.28), inset 0 3px 0 rgba(255, 255, 255, 0.34);
+    }
+
+    .open-button:focus-visible,
+    .back-button:focus-visible {
       outline: 4px solid rgba(255, 255, 255, 0.92);
       outline-offset: 5px;
     }
@@ -438,12 +464,23 @@
       transform: translateX(-50%) translateY(18px) scale(0.94);
     }
 
+    .page.opened .back-button {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+      transition-delay: 920ms;
+    }
+
     .page.opened .sparkles {
       opacity: 1;
     }
 
     .page.opened .mom-wrap {
       animation: mom-pop 720ms cubic-bezier(0.18, 1.38, 0.34, 1) 180ms both;
+    }
+
+    .page.opened .mom {
+      animation: mom-sway 1500ms ease-in-out 980ms infinite;
     }
 
     @keyframes twinkle {
@@ -523,6 +560,17 @@
       }
     }
 
+    @keyframes mom-sway {
+      0%,
+      100% {
+        transform: rotate(-4deg);
+      }
+
+      50% {
+        transform: rotate(4deg);
+      }
+    }
+
     @media (max-width: 680px) {
       .page {
         grid-template-rows: minmax(138px, 26%) 1fr;
@@ -591,6 +639,13 @@
       .open-button {
         bottom: 72px;
         min-width: 164px;
+      }
+
+      .back-button {
+        top: 10px;
+        left: 10px;
+        min-width: 104px;
+        min-height: 42px;
       }
     }
 
@@ -762,6 +817,10 @@
         點我
       </button>
 
+      <button class="back-button" type="button" id="backButton" aria-controls="page">
+        返回
+      </button>
+
       <div class="sparkles" aria-hidden="true">
         <span class="sparkle"></span>
         <span class="sparkle"></span>
@@ -775,11 +834,13 @@
   <script>
     const page = document.getElementById("page");
     const openButton = document.getElementById("openButton");
+    const backButton = document.getElementById("backButton");
     const musicUrl = "https://music.163.com/outchain/player?type=2&id=563549233&auto=1&height=32";
 
-    openButton.addEventListener("click", () => {
+    function openPage() {
       page.classList.add("opened");
       openButton.setAttribute("aria-hidden", "true");
+      backButton.removeAttribute("aria-hidden");
       const musicPlayer = document.createElement("iframe");
 
       musicPlayer.className = "music-player";
@@ -787,7 +848,18 @@
       musicPlayer.allow = "autoplay";
       musicPlayer.src = musicUrl;
       document.body.appendChild(musicPlayer);
-    }, { once: true });
+    }
+
+    function resetPage() {
+      page.classList.remove("opened");
+      openButton.removeAttribute("aria-hidden");
+      backButton.setAttribute("aria-hidden", "true");
+      document.querySelectorAll(".music-player").forEach((player) => player.remove());
+    }
+
+    backButton.setAttribute("aria-hidden", "true");
+    openButton.addEventListener("click", openPage);
+    backButton.addEventListener("click", resetPage);
   </script>
 </body>
 </html>
