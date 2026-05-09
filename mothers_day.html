@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>母親節快樂</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --rose: #ff4f87;
+      --coral: #ff785a;
+      --gold: #ffd84d;
+      --mint: #5ee6a7;
+      --sky: #5cc9ff;
+      --violet: #9b6cff;
+      --ink: #442035;
+      --cream: #fff8dc;
+      --leaf: #2fa867;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.78) 0 6%, transparent 7%),
+        radial-gradient(circle at 86% 12%, rgba(255, 248, 150, 0.72) 0 8%, transparent 9%),
+        linear-gradient(135deg, #ff8fc7 0%, #ffd35d 38%, #72e9b8 68%, #7cd7ff 100%);
+      color: var(--ink);
+    }
+
+    .page {
+      position: relative;
+      display: grid;
+      grid-template-rows: minmax(180px, 34%) 1fr;
+      width: 100%;
+      height: 100dvh;
+      min-height: 560px;
+      padding:
+        max(18px, env(safe-area-inset-top))
+        max(18px, env(safe-area-inset-right))
+        max(18px, env(safe-area-inset-bottom))
+        max(18px, env(safe-area-inset-left));
+      isolation: isolate;
+    }
+
+    .sun {
+      position: absolute;
+      top: 28px;
+      right: 34px;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: #fff169;
+      box-shadow: 0 0 0 14px rgba(255, 242, 110, 0.28), 0 0 60px rgba(255, 210, 50, 0.62);
+      z-index: -1;
+    }
+
+    .mom-wrap {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      padding-top: 2px;
+    }
+
+    .mom {
+      position: relative;
+      width: min(300px, 58vw);
+      aspect-ratio: 1.12;
+      filter: drop-shadow(0 22px 28px rgba(118, 52, 74, 0.2));
+    }
+
+    .mom-illustration {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .mom-heart {
+      animation: heart-float 2200ms ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .mom-flower {
+      animation: flower-wave 2600ms ease-in-out infinite;
+      transform-origin: 214px 136px;
+    }
+
+    .stage {
+      position: relative;
+      display: grid;
+      place-items: end center;
+      min-height: 0;
+    }
+
+    .message {
+      position: absolute;
+      top: 1%;
+      left: 50%;
+      width: min(880px, 96%);
+      transform: translateX(-50%) translateY(16px) scale(0.96);
+      opacity: 0;
+      text-align: center;
+      pointer-events: none;
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 1.25, 0.3, 1);
+      z-index: 5;
+    }
+
+    .message h1 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(4px, 1.2vw, 14px);
+      margin: 0;
+      font-size: clamp(2.7rem, 11vw, 6.6rem);
+      line-height: 1;
+      color: #fff;
+      text-shadow:
+        0 5px 0 #ff4f87,
+        0 9px 20px rgba(86, 23, 62, 0.3);
+    }
+
+    .message .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(42px) scale(0.45) rotate(-8deg);
+      transform-origin: center bottom;
+      will-change: transform, opacity;
+    }
+
+    .message .char:nth-child(2n) {
+      color: #fff4a3;
+      text-shadow:
+        0 5px 0 #ff7b45,
+        0 9px 20px rgba(86, 23, 62, 0.28);
+    }
+
+    .message .char:nth-child(3n) {
+      color: #dffbff;
+      text-shadow:
+        0 5px 0 #16add8,
+        0 9px 20px rgba(86, 23, 62, 0.28);
+    }
+
+    .message p {
+      margin: 14px 0 0;
+      font-size: clamp(1.08rem, 4vw, 1.65rem);
+      font-weight: 800;
+      color: #5b1f54;
+      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.56);
+    }
+
+    .bouquet {
+      position: relative;
+      width: min(760px, 96vw);
+      height: min(500px, 58dvh);
+      min-height: 330px;
+      transform: translateY(12px);
+    }
+
+    .ground {
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      width: min(800px, 104vw);
+      height: 132px;
+      transform: translateX(-50%);
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(180deg, rgba(80, 218, 124, 0.86), rgba(34, 161, 92, 0.9));
+      box-shadow: inset 0 16px 24px rgba(255, 255, 255, 0.23);
+    }
+
+    .stem {
+      position: absolute;
+      left: 50%;
+      bottom: 40px;
+      width: 8px;
+      height: var(--stem-height);
+      border-radius: 99px;
+      background: linear-gradient(90deg, #2c995f, #68e38e);
+      transform: translateX(-50%) rotate(var(--tilt));
+      transform-origin: bottom center;
+      opacity: 0;
+      transition: opacity 420ms ease 150ms;
+    }
+
+    .leaf {
+      position: absolute;
+      bottom: 35%;
+      width: 36px;
+      height: 18px;
+      border-radius: 100% 0 100% 0;
+      background: #52d879;
+      box-shadow: inset 5px 2px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    .leaf.left {
+      right: 3px;
+      transform: rotate(25deg);
+    }
+
+    .leaf.right {
+      left: 3px;
+      transform: rotate(155deg);
+    }
+
+    .flower {
+      position: absolute;
+      left: 50%;
+      bottom: calc(var(--stem-height) + 28px);
+      width: var(--size);
+      height: var(--size);
+      transform: translateX(-50%) scale(0.18) rotate(var(--spin));
+      transform-origin: center;
+      opacity: 0;
+      transition:
+        transform 820ms cubic-bezier(0.16, 1.35, 0.32, 1) var(--delay),
+        opacity 300ms ease var(--delay);
+    }
+
+    .petal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 44%;
+      height: 58%;
+      border-radius: 55% 55% 45% 45%;
+      background: var(--petal);
+      box-shadow: inset 8px 10px 0 rgba(255, 255, 255, 0.22);
+      transform-origin: 50% 88%;
+    }
+
+    .petal:nth-child(1) {
+      transform: translate(-50%, -94%) rotate(0deg);
+    }
+
+    .petal:nth-child(2) {
+      transform: translate(-50%, -94%) rotate(60deg);
+    }
+
+    .petal:nth-child(3) {
+      transform: translate(-50%, -94%) rotate(120deg);
+    }
+
+    .petal:nth-child(4) {
+      transform: translate(-50%, -94%) rotate(180deg);
+    }
+
+    .petal:nth-child(5) {
+      transform: translate(-50%, -94%) rotate(240deg);
+    }
+
+    .petal:nth-child(6) {
+      transform: translate(-50%, -94%) rotate(300deg);
+    }
+
+    .center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 34%;
+      height: 34%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff7a9 0 28%, #ffc928 30% 100%);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 3px 0 rgba(144, 76, 22, 0.16);
+    }
+
+    .stem-one {
+      --stem-height: 300px;
+      --tilt: -34deg;
+      --size: 120px;
+      --spin: -18deg;
+      --petal: var(--rose);
+      --delay: 120ms;
+    }
+
+    .stem-two {
+      --stem-height: 342px;
+      --tilt: -18deg;
+      --size: 138px;
+      --spin: 8deg;
+      --petal: var(--violet);
+      --delay: 260ms;
+    }
+
+    .stem-three {
+      --stem-height: 370px;
+      --tilt: 0deg;
+      --size: 154px;
+      --spin: -7deg;
+      --petal: var(--coral);
+      --delay: 390ms;
+    }
+
+    .stem-four {
+      --stem-height: 336px;
+      --tilt: 18deg;
+      --size: 132px;
+      --spin: 16deg;
+      --petal: #ffcf3d;
+      --delay: 530ms;
+    }
+
+    .stem-five {
+      --stem-height: 292px;
+      --tilt: 35deg;
+      --size: 116px;
+      --spin: -10deg;
+      --petal: #28cfff;
+      --delay: 670ms;
+    }
+
+    .open-button {
+      position: absolute;
+      left: 50%;
+      bottom: 68px;
+      z-index: 10;
+      min-width: 176px;
+      min-height: 56px;
+      padding: 0 26px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff3f86, #ff914d);
+      color: #fff;
+      font: inherit;
+      font-size: 1.15rem;
+      font-weight: 900;
+      box-shadow: 0 14px 28px rgba(145, 40, 78, 0.28), inset 0 3px 0 rgba(255, 255, 255, 0.34);
+      cursor: pointer;
+      transform: translateX(-50%);
+      transition: transform 220ms ease, opacity 260ms ease, box-shadow 220ms ease;
+    }
+
+    .open-button:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 18px 32px rgba(145, 40, 78, 0.32), inset 0 3px 0 rgba(255, 255, 255, 0.34);
+    }
+
+    .open-button:focus-visible {
+      outline: 4px solid rgba(255, 255, 255, 0.92);
+      outline-offset: 5px;
+    }
+
+    .sparkles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 300ms ease;
+      z-index: 4;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      background: #fff;
+      clip-path: polygon(50% 0, 62% 36%, 100% 50%, 62% 64%, 50% 100%, 38% 64%, 0 50%, 38% 36%);
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.92));
+      animation: twinkle 1500ms ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(1) {
+      left: 13%;
+      top: 17%;
+    }
+
+    .sparkle:nth-child(2) {
+      left: 27%;
+      top: 50%;
+      animation-delay: 250ms;
+    }
+
+    .sparkle:nth-child(3) {
+      right: 20%;
+      top: 32%;
+      animation-delay: 480ms;
+    }
+
+    .sparkle:nth-child(4) {
+      right: 12%;
+      bottom: 30%;
+      animation-delay: 690ms;
+    }
+
+    .sparkle:nth-child(5) {
+      left: 48%;
+      top: 12%;
+      animation-delay: 900ms;
+    }
+
+    .page.opened .stem {
+      opacity: 1;
+    }
+
+    .page.opened .flower {
+      opacity: 1;
+      transform: translateX(-50%) scale(1) rotate(var(--spin));
+    }
+
+    .page.opened .message {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .page.opened .message .char {
+      animation: letter-pop 760ms cubic-bezier(0.17, 1.45, 0.35, 1) both;
+      animation-delay: calc(620ms + var(--i) * 125ms);
+    }
+
+    .page.opened .open-button {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(18px) scale(0.94);
+    }
+
+    .page.opened .sparkles {
+      opacity: 1;
+    }
+
+    @keyframes twinkle {
+      0%,
+      100% {
+        transform: scale(0.72) rotate(0deg);
+        opacity: 0.46;
+      }
+
+      50% {
+        transform: scale(1.3) rotate(35deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes letter-pop {
+      0% {
+        opacity: 0;
+        transform: translateY(42px) scale(0.45) rotate(-8deg);
+      }
+
+      58% {
+        opacity: 1;
+        transform: translateY(-12px) scale(1.18) rotate(3deg);
+      }
+
+      78% {
+        transform: translateY(5px) scale(0.94) rotate(-1deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes heart-float {
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-7px) scale(1.06);
+      }
+    }
+
+    @keyframes flower-wave {
+      0%,
+      100% {
+        transform: rotate(-2deg);
+      }
+
+      50% {
+        transform: rotate(5deg);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        grid-template-rows: minmax(148px, 29%) 1fr;
+        min-height: 100dvh;
+      }
+
+      .sun {
+        width: 68px;
+        height: 68px;
+        top: 18px;
+        right: 18px;
+      }
+
+      .mom {
+        width: min(238px, 62vw);
+      }
+
+      .bouquet {
+        width: 100%;
+        height: 62dvh;
+        min-height: 360px;
+      }
+
+      .message {
+        top: 0;
+      }
+
+      .message h1 {
+        font-size: clamp(2.75rem, 14vw, 3.7rem);
+      }
+
+      .message p {
+        font-size: 1.1rem;
+      }
+
+      .stem-one {
+        --stem-height: 236px;
+        --size: 86px;
+        --tilt: -31deg;
+      }
+
+      .stem-two {
+        --stem-height: 270px;
+        --size: 98px;
+        --tilt: -16deg;
+      }
+
+      .stem-three {
+        --stem-height: 300px;
+        --size: 114px;
+      }
+
+      .stem-four {
+        --stem-height: 268px;
+        --size: 94px;
+        --tilt: 17deg;
+      }
+
+      .stem-five {
+        --stem-height: 232px;
+        --size: 84px;
+        --tilt: 32deg;
+      }
+
+      .open-button {
+        bottom: 72px;
+        min-width: 164px;
+      }
+    }
+
+    @media (min-width: 681px) and (max-height: 740px) {
+      .page {
+        grid-template-rows: 150px 1fr;
+        min-height: 540px;
+      }
+
+      .mom {
+        width: 230px;
+      }
+
+      .bouquet {
+        height: 390px;
+      }
+
+      .message {
+        top: -8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="page">
+    <div class="sun" aria-hidden="true"></div>
+
+    <section class="mom-wrap" aria-label="媽媽">
+      <div class="mom" aria-hidden="true">
+        <svg class="mom-illustration" viewBox="0 0 280 250" role="img" aria-label="親切可愛的媽媽插畫">
+          <defs>
+            <linearGradient id="dressGradient" x1="75" x2="205" y1="150" y2="235" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ff6aa3"/>
+              <stop offset="1" stop-color="#ff9c4b"/>
+            </linearGradient>
+            <linearGradient id="hairGradient" x1="78" x2="205" y1="34" y2="136" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#654061"/>
+              <stop offset="1" stop-color="#3f263f"/>
+            </linearGradient>
+          </defs>
+
+          <path d="M74 126C36 113 28 71 56 46c20-18 51-12 65 10 17-28 58-32 82-8 29 29 11 81-26 94-30 11-71-1-103-16Z" fill="#fff3fb" opacity=".9"/>
+          <path d="M74 122c-18-37-5-83 31-98 33-14 80 1 94 40 14 38-3 82-37 96-34 14-73 0-88-38Z" fill="url(#hairGradient)"/>
+          <path d="M51 219c9-47 44-75 89-75s80 28 89 75c-25 18-53 27-89 27s-64-9-89-27Z" fill="url(#dressGradient)"/>
+          <path d="M73 190c-18 11-35 27-47 46" fill="none" stroke="#ffd0b3" stroke-width="18" stroke-linecap="round"/>
+          <path d="M207 190c17 11 34 26 47 46" fill="none" stroke="#ffd0b3" stroke-width="18" stroke-linecap="round"/>
+          <path d="M91 78c4-29 24-48 52-48 30 0 51 21 55 51l3 24c5 45-21 80-61 80s-66-35-61-80l12-27Z" fill="#ffd0b3"/>
+          <path d="M90 91c8-38 39-58 78-54 25 3 43 21 46 49-34-2-65-13-88-34-8 18-20 31-36 39Z" fill="url(#hairGradient)"/>
+          <path d="M96 100c-14-3-25 6-23 20 1 12 13 19 25 14" fill="#ffd0b3"/>
+          <path d="M184 100c14-3 25 6 23 20-1 12-13 19-25 14" fill="#ffd0b3"/>
+          <circle cx="113" cy="115" r="6" fill="#43243d"/>
+          <circle cx="167" cy="115" r="6" fill="#43243d"/>
+          <ellipse cx="101" cy="134" rx="16" ry="9" fill="#ff7393" opacity=".55"/>
+          <ellipse cx="179" cy="134" rx="16" ry="9" fill="#ff7393" opacity=".55"/>
+          <path d="M127 139c7 8 20 8 27 0" fill="none" stroke="#d84267" stroke-width="5" stroke-linecap="round"/>
+          <path d="M96 168c22 22 66 22 88 0" fill="none" stroke="#fff0f7" stroke-width="7" stroke-linecap="round" opacity=".75"/>
+          <g class="mom-heart">
+            <path d="M140 213c-20-15-33-27-33-42 0-11 8-19 19-19 7 0 12 3 14 8 3-5 8-8 15-8 11 0 19 8 19 19 0 15-13 27-34 42Z" fill="#fff45d" stroke="#fff" stroke-width="5"/>
+          </g>
+          <g class="mom-flower">
+            <path d="M214 137c5 18 5 35 0 52" fill="none" stroke="#48c86f" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="214" cy="129" r="10" fill="#ffd642"/>
+            <circle cx="201" cy="129" r="10" fill="#ff6fa8"/>
+            <circle cx="227" cy="129" r="10" fill="#ff6fa8"/>
+            <circle cx="214" cy="116" r="10" fill="#ff8b54"/>
+            <circle cx="214" cy="142" r="10" fill="#ff8b54"/>
+            <circle cx="214" cy="129" r="7" fill="#fff4a8"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="stage" aria-label="母親節祝福">
+      <div class="message" aria-live="polite">
+        <h1 aria-label="母親節快樂">
+          <span class="char" style="--i: 0">母</span>
+          <span class="char" style="--i: 1">親</span>
+          <span class="char" style="--i: 2">節</span>
+          <span class="char" style="--i: 3">快</span>
+          <span class="char" style="--i: 4">樂</span>
+        </h1>
+        <p>親愛的媽媽，願你每天都被愛與花香包圍</p>
+      </div>
+
+      <div class="bouquet" aria-hidden="true">
+        <div class="ground"></div>
+        <div class="stem stem-one">
+          <span class="leaf left"></span>
+          <span class="flower">
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="center"></span>
+          </span>
+        </div>
+        <div class="stem stem-two">
+          <span class="leaf right"></span>
+          <span class="flower">
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="center"></span>
+          </span>
+        </div>
+        <div class="stem stem-three">
+          <span class="leaf left"></span>
+          <span class="leaf right"></span>
+          <span class="flower">
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="center"></span>
+          </span>
+        </div>
+        <div class="stem stem-four">
+          <span class="leaf left"></span>
+          <span class="flower">
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="center"></span>
+          </span>
+        </div>
+        <div class="stem stem-five">
+          <span class="leaf right"></span>
+          <span class="flower">
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="center"></span>
+          </span>
+        </div>
+      </div>
+
+      <button class="open-button" type="button" id="openButton" aria-controls="page">
+        開啟祝福
+      </button>
+
+      <div class="sparkles" aria-hidden="true">
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const page = document.getElementById("page");
+    const openButton = document.getElementById("openButton");
+
+    openButton.addEventListener("click", () => {
+      page.classList.add("opened");
+      openButton.setAttribute("aria-hidden", "true");
+    }, { once: true });
+  </script>
+</body>
+</html>
